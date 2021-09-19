@@ -1,0 +1,39 @@
+#include "Func-Matematicas.h"
+
+
+
+float Sumar (float numeroA,float numeroB)
+{
+	float suma;
+	suma = numeroA+numeroB;
+	return suma;
+}
+float Restar (float numeroA,float numeroB)
+{
+	float resta;
+	resta = numeroA-numeroB;
+	return resta;
+}
+float Dividir (float numeroA,float numeroB)
+{
+	float division;
+	division = numeroA/numeroB;
+	return division;
+}
+float Multiplicar (float numeroA,float numeroB)
+{
+	float multiplicacion;
+	multiplicacion = numeroA*numeroB;
+	return multiplicacion;
+}
+float Factorizar (float numeroA)
+{
+	float factorial = 1;
+	for(;numeroA>0 ;numeroA --)
+	{
+		factorial = factorial*numeroA;
+	}
+	return factorial;
+}
+
+

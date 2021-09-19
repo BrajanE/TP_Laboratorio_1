@@ -1,0 +1,13 @@
+#ifndef FUNC_MATEMATICAS_H_
+#define FUNC_MATEMATICAS_H_
+#include <stdio.h>
+#include <stdlib.h>
+
+
+float Sumar (float,float);
+float Restar (float,float);
+float Dividir (float,float);
+float Multiplicar (float,float);
+float Factorizar (float);
+
+#endif /* FUNC_MATEMATICAS_H_ */

@@ -1,0 +1,12 @@
+#ifndef FUNC_MENU_H_
+#define FUNC_MENU_H_
+#include <stdio.h>
+#include <stdlib.h>
+
+int MostrarSuma(float,float,int);
+int MostrarResta(float,float,int);
+int MostrarDivision(float,float,int);
+int MostrarMultiplicacion(float,float,int);
+int MostrarFactorial(float,int);
+
+#endif /* FUNC_MENU_H_ */

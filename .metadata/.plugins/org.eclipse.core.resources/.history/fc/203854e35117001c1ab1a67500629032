@@ -1,0 +1,18 @@
+#ifndef FUNC_MENU_H_
+#define FUNC_MENU_H_
+#include <stdio.h>
+#include <stdlib.h>
+// Punto 1 y 2
+float PedirFlotante(void);
+int MostrarMenu(int,float, float);
+// Punto 4
+void MostrarSuma(float,float,float);
+void MostrarResta(float,float,float);
+void MostrarDivision(float,float,float);
+void MostrarMultiplicacion(float,float,float);
+void MostrarFactorial(float,float);
+
+// Extras
+void MensajeControl(void);
+
+#endif /* FUNC_MENU_H_ */

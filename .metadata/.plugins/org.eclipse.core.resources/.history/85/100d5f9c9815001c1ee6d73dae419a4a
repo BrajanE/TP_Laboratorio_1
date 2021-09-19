@@ -1,0 +1,14 @@
+#ifndef FUNCIONES_TP1_H_
+#define FUNCIONES_TP1_H_
+#include <stdio.h>
+#include <stdlib.h>
+
+float PedirFlotante(void);
+int Sumar (float,float);
+int Restar (float,float);
+int Dividir (float,float);
+int Multiplicar (float,float);
+int Factorizar (float);
+
+
+#endif /* FUNCIONES_TP1_H_ */

@@ -1,0 +1,111 @@
+/*
+ ============================================================================
+ Name        : TP-1.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+float PedirFlotante(void);
+int Sumar (float,float);
+int Restar (float,float);
+int Dividir (float,float);
+int Multiplicar (float,float);
+int Factorizar (float);
+
+int main(void) {
+	setbuf(stdout,NULL);
+
+	float numeroA;
+	float numeroB;
+	int suma;
+	int resta;
+	int division;
+	int multiplicacion;
+	int factorial;
+	int opcion;
+
+	printf("Elija opcion: \n");
+	printf("1- Ingresar 1° operando (A=x)\n");
+	printf("2- Ingresar 2° operando (B=y)\n");
+	printf("3- Calcular todas las operaciones\n");
+	printf("4- Informar resultados\n");
+	printf("5- Salir\n");
+	scanf("%d",&opcion);
+
+	switch(opcion)
+	{
+	case 1:
+		numeroA = PedirFlotante();
+		break;
+	case 2:
+		numeroB = PedirFlotante();
+		break;
+	case 3:
+		suma = Sumar(numeroA,numeroB);
+		resta = Restar(numeroA,numeroB);
+		division = Dividir(numeroA,numeroB);
+		multiplicacion = Multiplicar(numeroA,numeroB);
+		factorial = Factorizar(numeroA);
+		break;
+	case 4:
+		printf("El resultado de %.2f + %.2f es: %d\n", numeroA,numeroB,suma);
+		printf("El resultado de %.2f - %.2f es: %d\n", numeroA,numeroB,resta);
+		printf("El resultado de %.2f / %.2f es: %d\n", numeroA,numeroB,division);
+		printf("El resultado de %.2f * %.2f es: %d\n", numeroA,numeroB,multiplicacion);
+		printf("El resultado de %.2f ! es: %d\n", numeroA,suma);
+		break;
+	case 5:
+		printf("¡Gracias por usar esta calculadora!");
+		break;
+
+	}
+	return EXIT_SUCCESS;
+}
+
+float PedirFlotante(void)
+{
+	float unFlotante;
+	printf("Ingrese numero: ");
+	scanf("%f",&unFlotante);
+	return unFlotante;
+}
+
+int Sumar (float numeroA,float numeroB)
+{
+	int suma;
+	suma = numeroA+numeroB;
+	return suma;
+}
+int Restar (float numeroA,float numeroB)
+{
+	int resta;
+	resta = numeroA-numeroB;
+	return resta;
+}
+int Dividir (float numeroA,float numeroB)
+{
+	int division;
+	division = numeroA/numeroB;
+	return division;
+}
+int Multiplicar (float numeroA,float numeroB)
+{
+	int multiplicacion;
+	multiplicacion = numeroA*numeroB;
+	return multiplicacion;
+}
+int Factorizar (float numeroA)
+{
+	int factorial = 1;
+	for(;numeroA>0;numeroA--)
+	{
+		factorial = factorial*numeroA;
+	}
+	return factorial;
+}
