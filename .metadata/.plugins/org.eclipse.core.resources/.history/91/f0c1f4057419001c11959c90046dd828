@@ -2,7 +2,6 @@
 #define FUNC_MENU_H_
 #include <stdio.h>
 #include <stdlib.h>
-#include "Func-Matematicas.h"
 // Punto 1 y 2
 float PedirFlotante(void); /// Esta funcion la utilizo para ingresar un valor
 /// por ese motivo no tiene parametros, lo realiza automaticamente.
@@ -12,7 +11,6 @@ int MostrarMenu(int,float, float);
 /// @param	Esta funcion muestra el menu en sus diferentes formas.
 /// @param 	Retorna un entero por que dentro agrege una "scanf" para obtener
 /// @param 	el numero entero correspondiente al menu (1,2,3,4,5) que sera usado posteriormente.
-void MostrarOpciones(int opcion, float numeroA,float numeroB);
 // Punto 4
 void MostrarSuma(float,float,float);
 void MostrarResta(float,float,float);

@@ -41,7 +41,8 @@ int MostrarMenu(int opcionMenu, float numeroA, float numeroB)
 	else if(opcionMenu >0 && opcionMenu<5)
 	{
 
-	 printf("1- Ingresar 1° operando (A=%.2f).\n",numeroA);
+	 printf("1- Ingresar 1° operando (A=%.2f).\n",numeroA,
+			"2- Ingresar 2° operando (B=%.2f).\n",numeroB );
 	 printf("2- Ingresar 2° operando (B=%.2f).\n",numeroB);
 	 printf("3- Calcular todas las operaciones:\n");
 	 	 printf("	a) Calcular la suma (%.2f+%.2f).\n",numeroA,numeroB);

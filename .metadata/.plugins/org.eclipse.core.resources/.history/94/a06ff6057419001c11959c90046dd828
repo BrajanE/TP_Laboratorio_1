@@ -2,7 +2,6 @@
 #define FUNC_MATEMATICAS_H_
 #include <stdio.h>
 #include <stdlib.h>
-#include "Func-Menu.h"
 /**
  *	Se declaran las funciones matematicas que van a ser utilizadas
  *	en el trabajo.
