@@ -28,7 +28,6 @@ int PedirEntero(char mensaje[])
  * \param Mensaje desde el main
  * \param numero maximo
  * \return Retorna numero ingresado por el usuario
- *
  */
 int PedirEnteroFull(char mensaje[], int maximo)
 {

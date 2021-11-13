@@ -1,1 +1,9 @@
-Info: Nothing to build for TP-2
+11:22:40 **** Rebuild of configuration Debug for project TP-3 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o Employee.o "..\\Employee.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o General.o "..\\General.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o Controller.o "..\\Controller.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o FuncEspecificas.o "..\\FuncEspecificas.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o parser.o "..\\parser.c" 
+gcc "-LC:\\Users\\estra\\Desktop\\TP-Laboratorio\\TP-3" -o TP-3.exe Controller.o Employee.o FuncEspecificas.o General.o main.o parser.o -lLinkedList 

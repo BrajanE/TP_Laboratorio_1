@@ -26,6 +26,7 @@ void initEmployees(Employee* list, int len)
 int IdAutomatico(int id)
 {
 	id++;
+
 	return id;
 }
 
