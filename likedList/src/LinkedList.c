@@ -56,7 +56,7 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 	Node* pAuxNode; //igualar a null genero errores en la siguiente funcion
 	int posicion=0;
 	int len=ll_len(this);
-	if (this!=NULL && (nodeIndex>=0 && nodeIndex<len))
+	if (this!=NULL && (nodeIndex>=0 && nodeIndex<len))//no puede ir "<=len" imagino que no puede guardar el ultimo nodo NULL o algo asi, es condicion del testeo
 	{
 		pAuxNode=this->pFirstNode;//toma el primer nodo y arranca el bucle
 		while(posicion!=nodeIndex)
@@ -103,7 +103,7 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 
 
     Node* pNodeAnterior;
-    Node* pNodeSigueinte;
+    Node* pNodeSiguiente;
 
     if(this!=NULL && nodeIndex>=0 && nodeIndex<=len)
     {
@@ -121,9 +121,9 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
     	} else //posiciones intermedias
     	{
     		pNodeAnterior=getNode(this, nodeIndex-1);//toma el nodo anterior al ingresado (-1)
-    		pNodeSigueinte=pNodeAnterior->pNextNode;//guarda el nodo siguiante al nodo anterior, seria al index original
+    		pNodeSiguiente=pNodeAnterior->pNextNode;//guarda el nodo siguiante al nodo anterior, seria al index original
     		pNodeAnterior->pNextNode=pNodeNuevo; //ahora el nodo anterior (-1) apunta al nodo que queremos agregar, el nuevo
-    		pNodeNuevo->pNextNode=pNodeSigueinte; //el nuevo nodo se agrego en la posicion deseada y apunta al siguiente nodo que tiene guardado el que estaba originalmente en dicho lugar
+    		pNodeNuevo->pNextNode=pNodeSiguiente; //el nuevo nodo se agrego en la posicion deseada y apunta al siguiente nodo que tiene guardado el que estaba originalmente en dicho lugar
     		returnAux=0;
     	}
     	if(returnAux==0)
@@ -161,7 +161,8 @@ int ll_add(LinkedList* this, void* pElement)
     int returnAux = -1;
     if(this != NULL)
     {
-
+    	int nodeIndex=ll_len(this);
+    	returnAux=addNode(this, nodeIndex, pElement);
     }
     return returnAux;
 }
@@ -177,8 +178,15 @@ int ll_add(LinkedList* this, void* pElement)
 void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
+    int len=ll_len(this);
+    if(this!=NULL && index>=0 && index<len)//igual que en get node
+    {
+    	Node* pNodeObtenido;
+    	pNodeObtenido=getNode(this, index);
+    	returnAux=pNodeObtenido->pElement;
+    }
 
-    return returnAux;
+    return returnAux;//tiene que retornar el pElement, que esta en un nodo
 }
 
 

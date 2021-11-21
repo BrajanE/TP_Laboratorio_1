@@ -24,7 +24,7 @@ struct Node
     struct Node* pNextNode;         //puntero al prox nodo
 }typedef Node;
 
-struct LinkedList
+struct LinkedList //seria el pElement del nodo
 {
     Node* pFirstNode;
     int size;                       //cada vez que agrego o elimino un elemento size++/--
