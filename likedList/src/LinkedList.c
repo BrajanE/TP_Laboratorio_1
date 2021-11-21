@@ -408,9 +408,20 @@ void* ll_pop(LinkedList* this,int index)
                         ( 0) si No contiene el elemento
 */
 int ll_contains(LinkedList* this, void* pElement)
-{
-    int returnAux = -1;
+{	//el "indexof" toma pelement y compara con alguno del array, devuelve la posicion donde esta ese pelement
+    int returnAux = -1; //error
+    int index; //control de indexof
+    if(this!=NULL)
+    {
+    	index=ll_indexOf(this, pElement);
+    	returnAux=0; //si no entra al if es por que no tiene elementos
+    	//iba antes del if sino vuelve a cambiar el retorno a 0
+    	if(index!=-1)
+    	{
+    		returnAux=1;//si el indice devuelve una posicion valida ==1
+    	}
 
+    }
     return returnAux;
 }
 
@@ -426,7 +437,26 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
+    int len1=ll_len(this);
+    int len2=ll_len(this2);
+    void* pAuxElement;
 
+    if(this!=NULL && this2!=NULL)
+    {
+    	returnAux=0;
+    	if(len2>0 && len1>0)
+    	{
+			for(int i=0;i<len2;i++)
+			{
+				pAuxElement=ll_get(this2, i);
+				returnAux=ll_contains(this, pAuxElement);
+				if(returnAux==0)
+				{
+					break;
+				}
+			}
+    	}
+    }
     return returnAux;
 }
 
@@ -443,7 +473,22 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
-
+    LinkedList* pNuevaLista=ll_newLinkedList();
+    int len=ll_len(this);
+    void* pNuevoElement;
+    if(this!=NULL && pNuevaLista!=NULL) //&& (from>=0 && from<=len) && (to>from && to<=len))
+    {	// (from<0 || from>len) || (to<=from || to>len)
+    	if((from>=0 && from<=len) && (to>from && to<=len))
+    	{
+    	//tenemos que obtener un elemento y pegarlo en la nueva lista, de from a to
+    		for(int i=from;i<to;i++)
+    		{
+    			pNuevoElement=ll_get(this, i);//obtenemos el lemento de la posicion
+    			ll_add(pNuevaLista, pNuevoElement);//agregamos una nueva lista y elemento con su correspondiente nodo
+    		}
+    		cloneArray=pNuevaLista; //clonamos para que lo retorne, tal vez sea innecesario
+    	}
+    }
     return cloneArray;
 }
 
