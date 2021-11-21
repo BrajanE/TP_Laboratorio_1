@@ -16,6 +16,12 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 LinkedList* ll_newLinkedList(void)
 {
     LinkedList* this= NULL;
+    this=(LinkedList*) malloc(sizeof(LinkedList));
+    if(this!=NULL)
+    {
+    	this->size=0;
+    	this->pFirstNode=NULL;
+    }
     return this;
 }
 
@@ -27,8 +33,12 @@ LinkedList* ll_newLinkedList(void)
  */
 int ll_len(LinkedList* this)
 {
-    int returnAux = -1;
-    return returnAux;
+    int rtn = -1;
+    if(this!=NULL)
+    {
+    	rtn = this->size;
+    }
+    return rtn;
 }
 
 
@@ -42,7 +52,21 @@ int ll_len(LinkedList* this)
  */
 static Node* getNode(LinkedList* this, int nodeIndex)
 {
-    return NULL;
+	Node* pNode = NULL;
+	Node* pAuxNode; //igualar a null genero errores en la siguiente funcion
+	int posicion=0;
+	int len=ll_len(this);
+	if (this!=NULL && (nodeIndex>=0 && nodeIndex<len))
+	{
+		pAuxNode=this->pFirstNode;//toma el primer nodo y arranca el bucle
+		while(posicion!=nodeIndex)
+		{
+			pAuxNode=pAuxNode->pNextNode;
+			posicion++;
+		}
+		pNode=pAuxNode;
+	}
+    return pNode;
 }
 
 /** \brief  Permite realizar el test de la funcion getNode la cual es privada
@@ -71,6 +95,42 @@ Node* test_getNode(LinkedList* this, int nodeIndex)
 static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 {
     int returnAux = -1;
+    int len = ll_len(this);
+
+    Node* pNodeNuevo = (Node*) malloc(sizeof(Node));
+    pNodeNuevo->pElement=pElement;
+    pNodeNuevo->pNextNode=NULL;
+
+
+    Node* pNodeAnterior;
+    Node* pNodeSigueinte;
+
+    if(this!=NULL && nodeIndex>=0 && nodeIndex<=len)
+    {
+    	if(nodeIndex==0)//primera posicion
+    	{
+    		pNodeNuevo->pNextNode=this->pFirstNode;
+    		this->pFirstNode=pNodeNuevo;
+    		returnAux=0;
+    	}
+    	else if(this->pFirstNode==NULL)//ultima posicion siempre apunta a null
+    	{
+    		this->pFirstNode=pNodeNuevo;
+    		returnAux=0;
+
+    	} else //posiciones intermedias
+    	{
+    		pNodeAnterior=getNode(this, nodeIndex-1);//toma el nodo anterior al ingresado (-1)
+    		pNodeSigueinte=pNodeAnterior->pNextNode;//guarda el nodo siguiante al nodo anterior, seria al index original
+    		pNodeAnterior->pNextNode=pNodeNuevo; //ahora el nodo anterior (-1) apunta al nodo que queremos agregar, el nuevo
+    		pNodeNuevo->pNextNode=pNodeSigueinte; //el nuevo nodo se agrego en la posicion deseada y apunta al siguiente nodo que tiene guardado el que estaba originalmente en dicho lugar
+    		returnAux=0;
+    	}
+    	if(returnAux==0)
+    	{
+    		this->size++;
+    	}
+    }
     return returnAux;
 }
 
@@ -99,7 +159,10 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 int ll_add(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    if(this != NULL)
+    {
 
+    }
     return returnAux;
 }
 
