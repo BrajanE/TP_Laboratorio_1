@@ -477,7 +477,7 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
     int len=ll_len(this);
     void* pNuevoElement;
     if(this!=NULL && pNuevaLista!=NULL) //&& (from>=0 && from<=len) && (to>from && to<=len))
-    {	// (from<0 || from>len) || (to<=from || to>len)
+    {	// (from<0 || from>len) || (to<=from || to>len) consigna para null
     	if((from>=0 && from<=len) && (to>from && to<=len))
     	{
     	//tenemos que obtener un elemento y pegarlo en la nueva lista, de from a to
@@ -501,9 +501,15 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
                                 (puntero a la nueva lista) Si ok
 */
 LinkedList* ll_clone(LinkedList* this)
-{
+{	//debe copiar la lista del parametro, en su totalidad
     LinkedList* cloneArray = NULL;
-
+    LinkedList* pNuevaLista=ll_newLinkedList();
+    int len=ll_len(this);
+    if(this!=NULL && pNuevaLista!=NULL)
+    {
+    	pNuevaLista=ll_subList(this, 0, len);
+    	cloneArray=pNuevaLista; //al igual que en la funcion anterior parece innecesario
+    }
     return cloneArray;
 }
 
@@ -517,9 +523,49 @@ LinkedList* ll_clone(LinkedList* this)
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
-    int returnAux =-1;
+	int returnAux =-1;
+	int len;
+	void* pPrimerDato;
+	void* pSegundoDato;
+	int ordenamientoFuncion;
+	void* pPivote;
 
+	if(this!=NULL && pFunc!=NULL && (order==0 || order==1))
+	{
+		len=ll_len(this);
+		for(int i=0;i<len-1;i++)
+		{
+			for(int j=i+1;j<len;j++)
+			{
+				pPrimerDato=ll_get(this,i);
+				pSegundoDato=ll_get(this,j);
+	            if(pPrimerDato!=NULL && pSegundoDato!=NULL)
+	            {
+	            	ordenamientoFuncion=pFunc(pPrimerDato,pSegundoDato);
+	            	switch(ordenamientoFuncion)
+	            	{
+	            	case -1:
+	            		if(order==0)
+	            		{
+	            			pPivote=pPrimerDato;
+	            			ll_set(this,i,pSegundoDato);
+	            			ll_set(this,j,pPivote);
+	            		}
+	            		break;
+	            	case 1:
+	            		if(order==1)
+	            		{
+	            			pPivote=pPrimerDato;
+	            			ll_set(this,i,pSegundoDato);
+	            			ll_set(this,j,pPivote);
+	            		}
+	            		break;
+	            	}
+	            	returnAux=0;
+	            }
+			}
+		}
+	}
     return returnAux;
-
 }
 
