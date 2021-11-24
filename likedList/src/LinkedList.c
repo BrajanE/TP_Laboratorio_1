@@ -98,38 +98,30 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
     int len = ll_len(this);
 
     Node* pNodeNuevo = (Node*) malloc(sizeof(Node));
-    pNodeNuevo->pElement=pElement;
-    pNodeNuevo->pNextNode=NULL;
-
-
     Node* pNodeAnterior;
     Node* pNodeSiguiente;
 
     if(this!=NULL && nodeIndex>=0 && nodeIndex<=len)
     {
+    	pNodeNuevo->pElement=pElement;
+    	pNodeNuevo->pNextNode=NULL;
+    	returnAux=0;
     	if(nodeIndex==0)
     	{
     		pNodeNuevo->pNextNode=this->pFirstNode;
     		this->pFirstNode=pNodeNuevo;
-    		returnAux=0;
     	}
-    	else if(this->pFirstNode==NULL)
+    	/*else if(this->pFirstNode==NULL)
     	{
     		this->pFirstNode=pNodeNuevo;
-    		returnAux=0;
-
-    	} else
+    	}*/ else
     	{
-    		pNodeAnterior=getNode(this, nodeIndex-1);//toma el nodo anterior al ingresado (-1)
-    		pNodeSiguiente=pNodeAnterior->pNextNode;//guarda el nodo siguiante al nodo anterior, seria al index original
-    		pNodeAnterior->pNextNode=pNodeNuevo; //ahora el nodo anterior (-1) apunta al nodo que queremos agregar, el nuevo
-    		pNodeNuevo->pNextNode=pNodeSiguiente; //el nuevo nodo se agrego en la posicion deseada y apunta al siguiente nodo que tiene guardado el que estaba originalmente en dicho lugar
-    		returnAux=0;
+    		pNodeAnterior=getNode(this, nodeIndex-1);
+    		pNodeSiguiente=pNodeAnterior->pNextNode;
+    		pNodeAnterior->pNextNode=pNodeNuevo;
+    		pNodeNuevo->pNextNode=pNodeSiguiente;
     	}
-    	if(returnAux==0)
-    	{
     		this->size++;
-    	}
     }
     return returnAux;
 }
@@ -183,7 +175,7 @@ void* ll_get(LinkedList* this, int index)
     {
     	Node* pNodeObtenido;
     	pNodeObtenido=getNode(this, index);
-    	returnAux=pNodeObtenido->pElement;
+    	returnAux=pNodeObtenido->pElement; //validar en caso de error antes del return
     }
 
     return returnAux;//tiene que retornar el pElement, que esta en un nodo
@@ -231,24 +223,20 @@ int ll_remove(LinkedList* this,int index)
     Node* pNodeAnterior;
     if(this!=NULL && index>=0 && index<len)
     {
+    	returnAux=0;
     	if(index==0)
     	{
     		pNodeBuscado=this->pFirstNode;
     		this->pFirstNode=pNodeBuscado->pNextNode;
     		free(pNodeBuscado);
-    		returnAux=0;
     	} else
     	{
     		pNodeBuscado=getNode(this, index);
     		pNodeAnterior=getNode(this, index-1);
     		pNodeAnterior->pNextNode=pNodeBuscado->pNextNode;
     		free(pNodeBuscado);
-    		returnAux=0;
     	}
-    	if(returnAux==0)
-    	{
-    		this->size--;
-    	}
+    	this->size--;
     }
     return returnAux;
 }
@@ -312,17 +300,24 @@ int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
     int len=ll_len(this);
-    Node* pNodeBuscado;
+    //Node* pNodeBuscado;
+    void* pAuxElement;
     if(this!=NULL)
     {
     	for(int i=0;i<len;i++)
     	{
-    		pNodeBuscado=getNode(this,i);
-    		if(pNodeBuscado->pElement==pElement)
+    		pAuxElement= ll_get(this, i);
+    		if(pAuxElement==pElement)
     		{
     			returnAux=i;
     			break;
     		}
+    		//pNodeBuscado=getNode(this,i);
+    		/*if(pNodeBuscado->pElement==pElement)//como comparar direccion de memorias
+    		{
+    			returnAux=i;
+    			break;
+    		}*/
     	}
     }
     return returnAux;
@@ -343,11 +338,12 @@ int ll_isEmpty(LinkedList* this)
     if(this!=NULL)
     {
     	returnAux=0;
+    	if(len==0)
+    	{
+    		returnAux=1;
+    	}
     }
-    if(len==0)
-    {
-    	returnAux=1;
-    }
+
     return returnAux;
 }
 
@@ -498,9 +494,10 @@ LinkedList* ll_clone(LinkedList* this)
 {
     LinkedList* cloneArray = NULL;
     LinkedList* pNuevaLista=ll_newLinkedList();
-    int len=ll_len(this);
+
     if(this!=NULL && pNuevaLista!=NULL)
     {
+    	int len=ll_len(this);
     	pNuevaLista=ll_subList(this, 0, len);
     	cloneArray=pNuevaLista;
     }
@@ -536,24 +533,17 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 	            if(pPrimerDato!=NULL && pSegundoDato!=NULL)
 	            {
 	            	ordenamientoFuncion=pFunc(pPrimerDato,pSegundoDato);
-	            	switch(ordenamientoFuncion)
+	            	if(ordenamientoFuncion == -1 && order == 0)
 	            	{
-	            	case -1:
-	            		if(order==0)
-	            		{
-	            			pPivote=pPrimerDato;
-	            			ll_set(this,i,pSegundoDato);
-	            			ll_set(this,j,pPivote);
-	            		}
-	            		break;
-	            	case 1:
-	            		if(order==1)
-	            		{
-	            			pPivote=pPrimerDato;
-	            			ll_set(this,i,pSegundoDato);
-	            			ll_set(this,j,pPivote);
-	            		}
-	            		break;
+	            		pPivote=pPrimerDato;
+	            		ll_set(this,i,pSegundoDato);
+	            		ll_set(this,j,pPivote);
+	            	}
+	            	if(ordenamientoFuncion==1 && order ==1)
+	            	{
+	            		pPivote=pPrimerDato;
+	            		ll_set(this,i,pSegundoDato);
+	            		ll_set(this,j,pPivote);
 	            	}
 	            	returnAux=0;
 	            }
